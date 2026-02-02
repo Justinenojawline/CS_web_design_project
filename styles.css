@@ -3,6 +3,7 @@ html {
     background: linear-gradient(55deg, rgba(255, 128, 0, 1) 0%, rgba(253, 227, 29, 1) 66%, rgba(200, 252, 69, 1) 100%);
     margin: 0;
     min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
 }
 
 body {
@@ -16,6 +17,13 @@ body {
     box-sizing: border-box;
 }
 
+/*Header Styles*/
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    max-width: 800px;
+}
+
 h1 {
     font-family: 'Dancing Script';
     font-weight: 900;
@@ -27,17 +35,78 @@ h1 {
     text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
 }
 
-h2 {
-    font-family: 'Dancing Script';
-    text-align: center;
-    margin: 5px 0;
-    color: #444;
+.subtitle {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2em;
+    color: #333;
+    margin-top: 0;
+    font-weight: 400;
 }
 
+/* Speech Bubble Styles */
+.speech-bubble {
+    position: fixed;
+    top: 150px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    min-width: 300px;
+    max-width: 500px;
+    z-index: 1000;
+    border: 3px solid #4a4a4a;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.speech-bubble.hidden {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+    pointer-events: none;
+}
+
+.speech-bubble.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.bubble-pointer {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 20px solid #4a4a4a;
+}
+
+.speech-content {
+    text-align: center;
+}
+
+#note-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2em;
+    margin: 0 0 10px 0;
+    color: #ff8000;
+}
+
+#note-message {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1em;
+    line-height: 1.5;
+    margin: 0;
+    color: #333;
+}
+
+/* Piano Styles */
 #piano {
     width: 992px;
     height: 290px;
-    margin: 20px auto;
+    margin: 30px auto 50px;
     padding: 90px 20px 0 20px;
     position: relative;
     border-radius: 10px;
@@ -67,11 +136,23 @@ h2 {
     float: left;
     border-radius: 0 0 5px 5px;
     cursor: pointer;
-    transition: background-color 0.1s;
+    transition: background-color 0.1s, transform 0.1s;
+    z-index: 1;
 }
 
 .key:hover {
     background-color: #f0f0f0;
+    transform: translateY(-2px);
+}
+
+.key.pressed {
+    background-color: #ffd966;
+    transform: translateY(3px);
+    box-shadow: inset 0 5px 10px rgba(0,0,0,0.2);
+}
+
+.key.black--key {
+    z-index: 2;
 }
 
 .key.black--key::after {
@@ -83,20 +164,42 @@ h2 {
     height: 100px;
     border-radius: 0 0 3px 3px;
     cursor: pointer;
-    z-index: 2;
+    z-index: 3;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .key.black--key:hover::after {
     background-color: #333;
+    transform: translateY(-2px);
 }
 
-.logo {
-    width: 200px;
-    position: absolute;
-    top: 23px;
+.key.black--key.pressed::after {
+    background-color: #ffb347;
+    transform: translateY(3px);
 }
 
-/* Media Queries for responsive centering */
+/*Instructions*/
+.instructions {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 15px 30px;
+    border-radius: 10px;
+    margin-top: 20px;
+    text-align: center;
+    max-width: 600px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.instructions p {
+    margin: 8px 0;
+    color: #444;
+    font-size: 1em;
+}
+
+.instructions i {
+    color: #ff8000;
+    margin-right: 10px;
+}
+
 @media (max-width: 768px) {
 
     #piano {
